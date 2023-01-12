@@ -1,0 +1,39 @@
+version: "3.1"
+
+services:  
+  postgres-refrisol:
+    container_name: pg_refrisol
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: refrisol
+    ports:
+      - "5431:5432"
+    volumes:
+      - pgdata_refrisol:/var/lib/postgresql/data
+    networks:
+      - refrisol
+
+  pgadmin-refrisol:
+    container_name: pgadm_refrisol
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "postgres@refrisol.com.br"
+      PGADMIN_DEFAULT_PASSWORD: "123"
+    ports:
+      - "16543:80"
+    volumes:
+      - pgadm_vol:/var/lib/pgadmin
+    depends_on:
+      - postgres-refrisol
+    networks:
+      - refrisol
+networks:
+  refrisol:
+    driver: bridge
+volumes:
+  pgdata_refrisol:
+    external: true
+  pgadm_vol:
+    external: true

@@ -1,0 +1,31 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Refrisol",
+		"_postman_id": "83538428-8b23-e500-46e9-2c132f9e6b09",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateUser",
+			"request": {
+				"url": "{{refrisol}}/users/create",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\":\"teste@teste.com\",\n\"profile\":\"admin\",\n\"password\":\"123\",\n\"name\":\"Admin\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

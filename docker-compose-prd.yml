@@ -1,0 +1,22 @@
+version: "3.1"
+
+services:
+  refrisol-api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.api
+      target: prod
+    image: refrisol/api-nestjs
+    container_name: api
+    command: npm run start:prod
+    ports:
+      - "3333:3333"
+    volumes:
+      - ./src:/usr/app/src
+    environment:
+      - NODE_ENV=prd
+    networks:
+      - refrisol
+networks:
+  refrisol:
+    driver: bridge

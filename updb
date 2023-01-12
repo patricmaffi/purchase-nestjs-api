@@ -1,0 +1,7 @@
+# Docker db
+docker volume create pgdata_refrisol
+docker volume create pgadm_vol
+docker compose -f docker-compose-bd.yml up -d
+
+# Para recriar o dist
+npx tsc -p tsconfig.build.json

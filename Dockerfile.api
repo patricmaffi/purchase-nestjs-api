@@ -1,0 +1,25 @@
+FROM node:14.5.0-alpine as base
+
+WORKDIR /usr/app
+
+COPY package*.json ./
+COPY tsconfig*.json ./
+COPY environments/.env ./dist/
+COPY environments/dev.env ./dist/
+COPY src ./src 
+
+FROM base AS dev
+RUN npm install --force
+EXPOSE 3333
+CMD ["npm", "run", "start:dev"]
+
+FROM dev AS builder
+RUN npm install -g @nestjs/cli
+RUN npm run build
+COPY environments/prd.env ./dist/
+
+FROM node:14.5.0-alpine AS prod
+WORKDIR /usr/app
+COPY --from=builder /usr/app /usr/app
+EXPOSE 3333
+CMD ["npm", "run", "start:prod"]
